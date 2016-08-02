@@ -1,0 +1,27 @@
+{
+    "username": "",
+    "password": "",
+    "worlds": [{
+        "id": 17291,
+        "uraniumId": 159925,
+        "farm1": {
+            "id": 329311,
+            "crop": 2
+        },
+        "farm2": {
+            "id": 329312,
+            "crop": 2
+        }
+    }, {
+        "id": 17292,
+        "uraniumId": 159926,
+        "farm1": {
+            "id": 329314,
+            "crop": 2
+        },
+        "farm2": {
+            "id": 329315,
+            "crop": 2
+        }
+    }]
+}
