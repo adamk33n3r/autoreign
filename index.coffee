@@ -4,7 +4,7 @@ request = require 'request-promise-native'
 request = request.defaults
   jar: true
 
-settings = require './settings.json'
+settings = require './settings'
 if not settings.username or not settings.password
   console.error 'You must provide both username and password'
   process.exit 1
