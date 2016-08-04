@@ -2,7 +2,12 @@
   "name": "autoreign",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.coffee",
+  "bin": "./bin/autoreign",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/adamk33n3r/autoreign.git"
+  },
   "dependencies": {
     "cheerio": "^0.20.0",
     "configamajig": "^1.0.4",
@@ -12,6 +17,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Adam Keenan",
+  "license": "MIT"
 }
