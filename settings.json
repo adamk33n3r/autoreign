@@ -3,7 +3,6 @@
     "password": "",
     "worlds": [{
         "id": 17291,
-        "uraniumId": 159980,
         "farm1": {
             "id": 329311,
             "crop": 1
@@ -14,7 +13,6 @@
         }
     }, {
         "id": 17292,
-        "uraniumId": 159983,
         "farm1": {
             "id": 329314,
             "crop": 1

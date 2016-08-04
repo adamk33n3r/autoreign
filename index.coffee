@@ -5,6 +5,9 @@ request = request.defaults
   jar: true
 
 settings = require './settings.json'
+if not settings.username or not settings.password
+  console.error 'You must provide both username and password'
+  process.exit 1
 
 get = (queryParams) ->
   return request.get "http://reign.ws/?#{querystring.stringify queryParams}"
@@ -19,10 +22,14 @@ login = (username, password) ->
     cookie: 1
     gologin: 1
 
-extractIds = (body) ->
-  $ = cheerio.load body
-  uraniumTd = $('#universe > div.column_mid > div > div:nth-child(3) > div > table > tr > td:nth-child(2) > div > table > tr > td:nth-child(1) > table > tr:nth-child(4) > td:nth-child(3)')
-  console.log uraniumTd.html()
+extractId = (body) ->
+  return () ->
+    $ = cheerio.load body
+    uraniumTd = $('#universe > div.column_mid > div > div:nth-child(3) > div > table > tr > td:nth-child(2) > div > table > tr > td:nth-child(1) > table > tr:nth-child(4) > td:nth-child(3) > a')
+    if uraniumTd.length is 0
+      return -1
+    href = uraniumTd.attr('href')
+    return href.substr 9
 
 # Set which nation we want to be working in
 setNation = (nation) ->
@@ -31,10 +38,11 @@ setNation = (nation) ->
     return get setnation: nation
 
 # Collect uranium
-collectUranium = (id) ->
-  return () ->
-    console.log "Collection uranium: #{id}"
-    get collect: id
+collectUranium = () ->
+  return (id) ->
+    if id isnt -1
+      console.log "Collection uranium: #{id}"
+      get collect: id
 
 # Harvest farms
 harvestFarm = (farm) ->
@@ -87,15 +95,18 @@ pe = (err) ->
 doThings = (world) ->
   return (html) ->
     Promise.resolve()
-    .then extractIds html
+    .then extractId html
+    .then collectUranium()
     .then harvestFarm world.farm1.id
     .then plantFarm world.farm1.id, world.farm1.crop
     .then harvestFarm world.farm2.id
     .then plantFarm world.farm2.id, world.farm2.crop
-    .then collectUranium world.uraniumId
     .then getCulture()
     .catch pe
 
+console.log ''
+console.log ''
+console.log Date()
 login settings.username, settings.password
 .then () ->
   console.log 'logged in'
