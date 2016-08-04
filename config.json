@@ -2,23 +2,23 @@
     "username": "",
     "password": "",
     "worlds": [{
-        "id": 17291,
+        "id": null,
         "farm1": {
-            "id": 329311,
+            "id": null,
             "crop": 1
         },
         "farm2": {
-            "id": 329312,
+            "id": null,
             "crop": 1
         }
     }, {
-        "id": 17292,
+        "id": null,
         "farm1": {
-            "id": 329314,
+            "id": null,
             "crop": 1
         },
         "farm2": {
-            "id": 329315,
+            "id": null,
             "crop": 1
         }
     }]
