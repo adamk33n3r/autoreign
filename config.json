@@ -6,22 +6,22 @@
         "initiative": false,
         "farm1": {
             "id": null,
-            "crop": 1
+            "crop": "cabbage"
         },
         "farm2": {
             "id": null,
-            "crop": 1
+            "crop": "cabbage"
         }
     }, {
         "id": null,
         "initiative": false,
         "farm1": {
             "id": null,
-            "crop": 1
+            "crop": "cabbage"
         },
         "farm2": {
             "id": null,
-            "crop": 1
+            "crop": "cabbage"
         }
     }]
 }

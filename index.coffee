@@ -51,31 +51,35 @@ harvestFarm = (farm) ->
     console.log "Harvesting farm: #{farm}"
     return get harvest: farm
 
+# Crops
+crops = [
+  'cabbage'
+  'rice'
+  'cotton'
+  'tomato'
+  'peanuts'
+  'peas'
+  'wheat'
+  'avocado'
+  'strawberry'
+  'coffee'
+  'potato'
+  'pepper'
+  'pumpkin'
+  'tobacco'
+  'grapes'
+  'corn'
+  'blackberry'
+  'sugar'
+  'cannabis'
+  'cocoa'
+]
+
 # Plant farm with crop
-plantFarm = (farm, crop) ->
+plantFarm = (farm, cropToPlant) ->
+  crop = if crop is 'number' then cropToPlant else crops.indexOf cropToPlant.toLower()
   return () ->
     console.log "Planting farm: #{farm}\nWith crop: #{crop}"
-    # Crops:
-    # 	1: Cabbage
-    # 	2: Rice
-    # 	3: Cotton
-    # 	4: Tomato
-    # 	5: Peanuts
-    # 	6: Peas
-    # 	7: Wheat
-    # 	8: Avocado
-    # 	9: Strawberry
-    # 	10: Coffee
-    # 	11: Potato
-    # 	12: Pepper
-    # 	13: Pumpkin
-    # 	14: Tobacco
-    # 	15: Grapes
-    # 	16: Corn
-    # 	17: Blackberry
-    # 	18: Sugar
-    # 	19: Cannabis
-    # 	20: Cocoa
     return post
       plant_structure: farm
       plant: crop
