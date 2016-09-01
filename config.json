@@ -3,6 +3,7 @@
     "password": "",
     "worlds": [{
         "id": null,
+        "initiative": false,
         "farm1": {
             "id": null,
             "crop": 1
@@ -13,6 +14,7 @@
         }
     }, {
         "id": null,
+        "initiative": false,
         "farm1": {
             "id": null,
             "crop": 1

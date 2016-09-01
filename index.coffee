@@ -4,6 +4,7 @@ request = require 'request-promise-native'
 request = request.defaults
   jar: true
 
+defaults = require './config.json'
 settings = require './settings'
 if not settings.username or not settings.password
   console.error 'You must provide both username and password'
@@ -79,15 +80,15 @@ plantFarm = (farm, crop) ->
       plant_structure: farm
       plant: crop
 
-getCulture = () ->
+useInitiative = (initiative) ->
+  options = {
+    culture: 5
+    land: 8
+  }
   return () ->
+    return unless initiative and initiative of options
     console.log "Using initiative"
-    return get eo: 5
-    # Get culture twice
-    return Promise.all [
-      get eo: 5
-      get eo: 5
-    ]
+    return get eo: options[initiative]
 
 pe = (err) ->
   console.error err
@@ -101,7 +102,7 @@ doThings = (world) ->
     .then plantFarm world.farm1.id, world.farm1.crop
     .then harvestFarm world.farm2.id
     .then plantFarm world.farm2.id, world.farm2.crop
-    .then getCulture()
+    .then useInitiative world.initiative
     .catch pe
 
 console.log ''
