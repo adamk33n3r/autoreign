@@ -77,7 +77,7 @@ crops = [
 
 # Plant farm with crop
 plantFarm = (farm, cropToPlant) ->
-  crop = if typeof cropToPlant is 'number' then cropToPlant else crops.indexOf cropToPlant.toLowerCase()
+  crop = if typeof cropToPlant is 'number' then cropToPlant else crops.indexOf(cropToPlant.toLowerCase()) + 1
   return () ->
     console.log "Planting farm: #{farm}\nWith crop: #{crop}"
     return post
