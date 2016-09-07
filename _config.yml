@@ -1,7 +1,7 @@
 # Setup
 title:        AutoReign
 tagline:      Automate your world-conquering
-baseurl:      ""
+baseurl:      "autoreign"
 paginate:     1
 
 # About/contact
