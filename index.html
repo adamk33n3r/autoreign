@@ -3,44 +3,75 @@ layout: default
 title: {{ site.name }}
 ---
 
-<div id="home">
-  <h1>Blog Posts</h1>
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-
 <form name="form">
-  <input
-    name="solider"
-    type="number"
-    min="0"
-    ng-model="mc.offense.soldier"
-  />
-  <input
-    name="recluse"
-    type="number"
-    min="0"
-    ng-model="mc.offense.recluse"
-  />
-  <input
-    name="guardian"
-    type="number"
-    min="0"
-    ng-model="mc.offense.guardian"
-  />
-  <input
-    name="brute"
-    type="number"
-    min="0"
-    ng-model="mc.offense.brute"
-  />
-  <span><% mc.offense.soldier * 1 + mc.offense.recluse * 2 + mc.offense.guardian * 1 + mc.offense.brute * 3 %></span>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <h1>Defense Report</h1>
+        <textarea class="form-control"
+                  rows="4"
+                  name="defenseReport"
+                  placeholder="Paste the intel report here."
+                  ng-model="mc.defenseReport">
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Your Units</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <unit-input ng-model="mc.offense.soldiers"></unit-input>
+      <unit-input ng-model="mc.offense.recluse"></unit-input>
+      <unit-input ng-model="mc.offense.guardians"></unit-input>
+      <unit-input ng-model="mc.offense.brutes"></unit-input>
+      <unit-input ng-model="mc.offense.razors"></unit-input>
+      <unit-input ng-model="mc.offense.nukes"></unit-input>
+    </div>
+    <div class="col-xs-6">
+      <unit-input ng-model="mc.offense.sparrows"></unit-input>
+      <unit-input ng-model="mc.offense.hives"></unit-input>
+      <unit-input ng-model="mc.offense.spades"></unit-input>
+      <unit-input ng-model="mc.offense.sickles"></unit-input>
+      <unit-input ng-model="mc.offense.warthogs"></unit-input>
+    </div>
+  </div>
+
+
+  <div><% mc.j5() %></div>
+  <div><% mc.j6() %></div>
+  <!--
+  Offense
+  <span><% mc.j1() %></span>
+  <span><% mc.j2() %></span>
+  <span><% mc.j3() %></span>
+  <span><% mc.j4() %></span>
+  <span><% mc.j7() %></span>
+  <span><% mc.j8() %></span>
+  <span><% mc.j9() %></span>
+  <span><% mc.j10() %></span>
+  Defense
+  <span><% mc.j11() %></span>
+  <span><% mc.j12() %></span>
+  <span><% mc.j13() %></span>
+  <span><% mc.j14() %></span>
+  <span><% mc.j15() %></span>
+  <span><% mc.j16() %></span>
+  <span><% mc.j17() %></span>
+  <span><% mc.j18() %></span>
+  -->
+  OffensePower: <span><% mc.offenseScore() | number %></span>
+  DefensePower: <span><% mc.defenseScore() | number %></span>
+  <div>
+    <span ng-show="mc.offenseScore() > mc.defenseScore()">You Win!</span>
+    <span ng-show="mc.offenseScore() <= mc.defenseScore()">You Lose!</span>
+  </div>
 </form>
 
-<h1>Formula</h1>
+<h1>Formula from Guessit's spreadsheet</h1>
 <pre>
 //offense
 j1=(soldier*1+recluse*2+guardian*1+brute*3)/j5
@@ -49,9 +80,9 @@ j3=(brute*3+radical*8+sparrow*3+hive*1+warthog*1)/j5
 j4=(radical*1+recluse*3+brute*6+sickle*3)/j5
 
 //total offense power
-j5=solider*1+merc*2+radical*8+recluse*2+guardian*1+brute*3+sparrow*3+hive*1+spade*1+razor*3+warthog*4+mirage*3+nuke*1000+sickle*3
+j5=soldier*1+merc*2+radical*8+recluse*2+guardian*1+brute*3+sparrow*3+hive*1+spade*1+razor*3+warthog*4+mirage*3+nuke*1000+sickle*3
 
-//offense effectiveness
+//offense effectiveness?
 j7=(soldier*1+merc*2+radical*8)/j5
 j8=(recluse*2+guardian*1)/j5
 j9=(brute*3+razor*3)/j5
@@ -80,7 +111,7 @@ j12=(guardian*3+brute*2+warthog*1)/j6
 j13=(brute*2+sparrow*1+hive*3+warthog*1)/j6
 j14=(spade*3+razor*1+mirage*4+sickle*1)/j6
 
-j15=(solduer*1+merc*1+conscripts*1)/j6
+j15=(soldier*1+merc*1+conscripts*1)/j6
 j16=(recluse*1+guardian*3)/j6
 j17=(brute*2+razor*1)/j6
 j18=(sparrow*1+hive*3+spade*3+warthog*1+mirage*2+sickle*1)/j6
@@ -92,3 +123,13 @@ j5*(j1*j15+j2*j16+j3*j17+j4*j18+1) // retribution not a thing? *(1+b17/2)
 //defense score
 j6*(j11*j7+j12*j8+j13*j9+j14*j10+1)*(1+(c20/2))*d20
 </pre>
+
+<div id="home">
+  <h1>Blog Posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
