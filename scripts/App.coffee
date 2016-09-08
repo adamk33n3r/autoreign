@@ -30,7 +30,7 @@ angular.module 'AutoReignApp', []
   constructor: ($scope) ->
     @form = {}
     @offense = {
-      soldiers: 100
+      soldiers: 0
       recluse: 0
       guardians: 0
       brutes: 0
@@ -49,7 +49,7 @@ angular.module 'AutoReignApp', []
     }
 
     @defense = {
-      soldiers: 1
+      soldiers: 0
       recluse: 0
       guardians: 0
       brutes: 0
@@ -67,8 +67,8 @@ angular.module 'AutoReignApp', []
 
     }
 
-    @morale = .9
-    @de = 1
+    @morale = 0
+    @de = 0
 
     $scope.$watch () =>
       @defenseReport
