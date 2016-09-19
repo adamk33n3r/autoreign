@@ -3,10 +3,17 @@
   <title>{{ site.title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css"> -->
+  <!-- <link rel="stylesheet" href="{{ site.baseurl }}/css/code/default.css"> -->
+  <link rel="stylesheet" href="{{ site.baseurl }}/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/bower_components/jqplot/jquery.jqplot.min.css"></link>
+
   <link rel="stylesheet" href="{{ site.baseurl }}/css/cayman.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/code/monokai.css">
+
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/autoreign.css">
   <base href="/autoreign/"/>
   <script>
     (function(){
@@ -17,7 +24,24 @@
       }
     })();
   </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-  <script src="scripts/App.js"></script>
-  <script src="scripts/UnitInputDirective.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/jquery.jqplot.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/plugins/jqplot.cursor.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/plugins/jqplot.highlighter.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/jqplot/plugins/jqplot.trendline.js"></script>
+
+  <!-- Angular -->
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/angular-ui-chart/src/chart.js"></script>
+
+  <!-- Bootstrap -->
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/tether/dist/js/tether.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{{ site.baseurl }}/bower_components/regression-js/build/regression.min.js"></script>
+
+  <script type="text/javascript" src="scripts/App.js"></script>
+  <script type="text/javascript" src="scripts/UnitInputDirective.js"></script>
+  <script type="text/javascript" src="scripts/TestData.js"></script>
 </head>

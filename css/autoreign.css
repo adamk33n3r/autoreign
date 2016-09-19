@@ -1,0 +1,9 @@
+.project-name {
+  font-weight: 100;
+  font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+.highlight code pre { margin: 10px 0; }
+.highlight code .gutter { color: black; background: #888; }
+.highlight code .lineno { text-align: center; padding: 0 10px; -moz-user-select: none; -webkit-user-select: none; user-select: none; }
+.highlight code .code { padding-left: 10px; }

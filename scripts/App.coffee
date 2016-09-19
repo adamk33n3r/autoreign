@@ -1,7 +1,11 @@
 ---
 ---
 
-angular.module 'AutoReignApp', []
+$.jqplot.config.enablePlugins = true
+
+angular.module 'AutoReignApp', [
+  'ui.chart'
+]
 
 .config ($interpolateProvider) ->
   $interpolateProvider.startSymbol('<%').endSymbol('%>')
@@ -27,7 +31,57 @@ angular.module 'AutoReignApp', []
     nukes: [1000, 0]
   }
 
-  constructor: ($scope) ->
+  constructor: ($scope, @testData) ->
+    landCounts = @getChart1Data false
+    for land, data of @getChart1Data false
+      result = regression 'linear', data
+      console.log result
+      #console.log data.reduce (prev, next) ->
+      #  console.log prev, next
+      #  [x1, y1] = prev
+      #  [x2, y2] = next
+      #  return (y2 - y1) / (x2 - x1)
+      #, [0, 0]
+    @chartOptions = {
+      animate: true
+      cursor:
+        show: true
+        showTooltip:true
+      legend:
+        show: true
+      highlighter:
+        tooltipFormatString: "%#.2f"
+        formatString: "%#.2f"
+      trendline:
+        show: false
+      axes:
+        xaxis:
+          label: 'Soldiers/Raw Defense'
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+          labelOptions:
+            fontFamily: 'Roboto'
+        yaxis:
+          label: 'Defense Efficiency (DE)'
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+          labelOptions:
+            fontFamily: 'Roboto'
+      series: ({
+        label: "#{land} Land #{regression('linear', data).string}"
+        pointLabels:
+          show: true
+        rendererOptions:
+          animation:
+            speed: 5000
+          highlightMouseOver: true
+        trendline:
+          lineWidth: 5
+      } for land, data of landCounts)
+      highlighter:
+        show: true
+        showLabel: true
+    }
+    @chart2Options = angular.copy @chartOptions
+    @chart2Options.axes.xaxis.label = 'Total Defense'
     @form = {}
     @offense = {
       soldiers: 0
@@ -70,9 +124,28 @@ angular.module 'AutoReignApp', []
     @morale = 0
     @de = 0
 
+    # Could change to ngChange, right?
     $scope.$watch () =>
       @defenseReport
     , @_parseIntel
+
+  getChart1Data: (values = true) ->
+    chartData = {}
+    for item in @testData
+      if item.land not of chartData
+        chartData[item.land] = []
+      chartData[item.land].push [item.soldiers, item.de]
+    chartDataList = (item for land, item of chartData)
+    return if values then chartDataList else chartData
+
+  getChart2Data: (values = true) ->
+    chartData = {}
+    for item in @testData
+      if item.land not of chartData
+        chartData[item.land] = []
+      chartData[item.land].push [item.totalDefense, item.de]
+    chartDataList = (item for land, item of chartData)
+    return if values then chartDataList else chartData
 
   j1: () ->
     @_sumPower(@_filter @offense, ['soldiers', 'recluse', 'guardians', 'brutes']) / @totalOffense
@@ -162,6 +235,12 @@ angular.module 'AutoReignApp', []
     return sum
 
   _parseIntel: (report) =>
+    unless report? and report isnt ''
+      @morale = 0
+      @de = 0
+      for unit, count of @defense
+        @defense[unit] = 0
+      return
     console.log report
     try
       @defense.soldiers   = @_getUnitCount report.match(/(\d+)\/Soldier/)
@@ -178,7 +257,7 @@ angular.module 'AutoReignApp', []
       @defense.sickles    = @_getUnitCount report.match(/(\d+)\/Sickle/)
       console.log @defense
       @morale             = report.match(/: (\d+)% Morale/)[1]
-      @de                 = report.match(/@ (\d(?:.\d\d)?) DE/)[1]
+      @de                 = report.match(/@ (\d(?:.\d\d?)?) DE/)[1]
     catch e
       console.error 'Malformed intel report', e
 

@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 gemspec
-ruby RUBY_VERSION
+ruby "2.3.0"
 
 #gem 'kramdown'
-#gem 'pygments.rb'
+gem 'pygments.rb'
 
 
 # Hello! This is where you manage which Jekyll version is used to run.

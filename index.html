@@ -71,6 +71,38 @@ title: {{ site.name }}
   </div>
 </form>
 
+<h1>Test Data</h1>
+<div ui-chart="mc.getChart1Data()" chart-options="mc.chartOptions"></div>
+<div ui-chart="mc.getChart2Data()" chart-options="mc.chart2Options"></div>
+<table class="cayman">
+  <thead>
+    <tr>
+      <th>Soldiers</th>
+      <th>Total Defense</th>
+      <th>Culture</th>
+      <th>Morale</th>
+      <th>Bonus Defense</th>
+      <th>DE</th>
+      <th>Land</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in mc.testData | orderBy: 'soldiers' | orderBy: 'culture' | orderBy: 'land'">
+      <td ng-bind="row.soldiers"></td>
+      <td ng-bind="row.totalDefense"></td>
+      <td ng-bind="row.culture"></td>
+      <td><% row.morale %></td>
+      <td ng-bind="row.bonus"></td>
+      <td><% row.de | number: 2 %></td>
+      <td ng-bind="row.land"></td>
+    </tr>
+  </tbody>
+</table>
+<pre>
+~1.02  for 5 land
+~.253  for 6 land
+~.1132 for 7 land
+</pre>
 <h1>Formula from Guessit's spreadsheet</h1>
 <pre>
 //offense
