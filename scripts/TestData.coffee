@@ -382,9 +382,25 @@ angular.module 'AutoReignApp'
   soldiers: 30
   totalDefense: 59
   culture: 0
-  morale: 26
+  morale: 27
   bonus: 1
-  de: 1.91
+  de: 1.92
+  land: 8
+,
+  soldiers: 31
+  totalDefense: 63
+  culture: 0
+  morale: 27
+  bonus: 1
+  de: 1.98
+  land: 8
+,
+  soldiers: 32
+  totalDefense: 65
+  culture: 0
+  morale: 27
+  bonus: 1
+  de: 2
   land: 8
 ]
 

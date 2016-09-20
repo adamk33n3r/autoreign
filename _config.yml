@@ -43,3 +43,5 @@ kramdown:
 author:
   name:       Adam Keenan
   url:        http://adam-keenan.com 
+
+host: 0.0.0.0

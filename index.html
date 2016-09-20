@@ -69,11 +69,14 @@ title: {{ site.name }}
     <span ng-show="mc.offenseScore() > mc.defenseScore()">You Win!</span>
     <span ng-show="mc.offenseScore() <= mc.defenseScore()">You Lose!</span>
   </div>
+  <unit-input ng-model='mc.land'></unit-input>
+  <span>DE: <% mc.getDE(mc.land, mc._sumPower(mc.offense, false)) %> (not including morale)</span>
 </form>
 
 <h1>Test Data</h1>
 <div ui-chart="mc.getChart1Data()" chart-options="mc.chartOptions"></div>
 <div ui-chart="mc.getChart2Data()" chart-options="mc.chart2Options"></div>
+<div ui-chart="mc.getChart3Data()" chart-options="mc.chart3Options"></div>
 <table class="cayman">
   <thead>
     <tr>

@@ -32,16 +32,8 @@ angular.module 'AutoReignApp', [
   }
 
   constructor: ($scope, @testData) ->
+    window.mc = this
     landCounts = @getChart1Data false
-    for land, data of @getChart1Data false
-      result = regression 'linear', data
-      console.log result
-      #console.log data.reduce (prev, next) ->
-      #  console.log prev, next
-      #  [x1, y1] = prev
-      #  [x2, y2] = next
-      #  return (y2 - y1) / (x2 - x1)
-      #, [0, 0]
     @chartOptions = {
       animate: true
       cursor:
@@ -52,8 +44,6 @@ angular.module 'AutoReignApp', [
       highlighter:
         tooltipFormatString: "%#.2f"
         formatString: "%#.2f"
-      trendline:
-        show: false
       axes:
         xaxis:
           label: 'Soldiers/Raw Defense'
@@ -66,7 +56,7 @@ angular.module 'AutoReignApp', [
           labelOptions:
             fontFamily: 'Roboto'
       series: ({
-        label: "#{land} Land #{regression('linear', data).string}"
+        label: "#{land} Land #{regression('linearThroughOrigin', data).string}"
         pointLabels:
           show: true
         rendererOptions:
@@ -82,6 +72,21 @@ angular.module 'AutoReignApp', [
     }
     @chart2Options = angular.copy @chartOptions
     @chart2Options.axes.xaxis.label = 'Total Defense'
+    @chart3Options = angular.copy @chartOptions
+    @chart3Options.axes.xaxis.label = 'Land'
+    @chart3Options.axes.yaxis.label = 'Slope'
+    @chart3Options.series = [{
+      label: "Line"
+      pointLabels:
+        show: true
+      rendererOptions:
+        animation:
+          speed: 5000
+        highlightMouseOver: true
+      trendline: show: false
+    }, {
+      trendline: show: false
+    }]
     @form = {}
     @offense = {
       soldiers: 0
@@ -129,6 +134,8 @@ angular.module 'AutoReignApp', [
       @defenseReport
     , @_parseIntel
 
+    @land = 5
+
   getChart1Data: (values = true) ->
     chartData = {}
     for item in @testData
@@ -146,6 +153,18 @@ angular.module 'AutoReignApp', [
       chartData[item.land].push [item.totalDefense, item.de]
     chartDataList = (item for land, item of chartData)
     return if values then chartDataList else chartData
+
+  getChart3Data: () ->
+    chart1Data = @getChart1Data false
+    data = []
+    for item in @testData
+      data.push [item.land, regression('linear', chart1Data[item.land]).equation[0]]
+    points = []
+    x = 5
+    while x <= 8
+      points.push [x, 1/Math.pow(x - 4, 2)]
+      x += 0.01
+    return [data, points]
 
   j1: () ->
     @_sumPower(@_filter @offense, ['soldiers', 'recluse', 'guardians', 'brutes']) / @totalOffense
@@ -220,6 +239,11 @@ angular.module 'AutoReignApp', [
       @j13() * @j9() +
       @j14() * @j10() + 1
     ) * (1 + @morale / 200) * @de
+
+  getDE: (land, defense) ->
+    deSlope = 1 / Math.pow land - 4, 2
+    console.log deSlope, land, defense
+    return Math.min deSlope * defense, 2
 
   _filter: (units, unitNames) ->
     return unitNames
